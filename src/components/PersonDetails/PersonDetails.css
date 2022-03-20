@@ -1,0 +1,11 @@
+.person {
+    background-color: #32383e;
+    padding: 2rem;
+    border-radius: 16px;
+}
+
+.person img {
+    width: 12vw;
+    height: 12vw;
+    border-radius: 32px;
+}

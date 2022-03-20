@@ -1,0 +1,22 @@
+.header {
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+    padding-left: 1rem;
+    background-color: #32383e;
+    border-radius: 0 0 16px 16px;
+}
+
+
+ul {
+    display: flex;
+}
+
+a {
+    margin-right: 10px;
+    color: darkslategray;
+}
+
+li {
+    list-style: none;
+}

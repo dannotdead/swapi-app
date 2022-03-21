@@ -22,12 +22,12 @@ export default class SwapiService {
   }
 
   async getAllPlanets() {
-    const res = await this.getResources(`/planet/`)
+    const res = await this.getResources(`/planets/`)
     return res.results
   }
 
   getPlanet(id) {
-    return this.getResources(`/planet/${id}/`)
+    return this.getResources(`/planets/${id}/`)
   }
 
   async getAllStarships() {

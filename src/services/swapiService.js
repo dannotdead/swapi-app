@@ -14,28 +14,70 @@ export default class SwapiService {
 
   async getAllPeoples() {
     const res = await this.getResources(`/people/`)
-    return res.results
+    return res.results.map(this.transformPerson)
   }
 
-  getPerson(id) {
-    return this.getResources(`/people/${id}/`)
+  async getPerson(id) {
+    const person = await this.getResources(`/people/${id}/`)
+    return this.transformPerson(person)
   }
 
   async getAllPlanets() {
     const res = await this.getResources(`/planets/`)
-    return res.results
+    return res.results.map(this.transformPlanet)
   }
 
-  getPlanet(id) {
-    return this.getResources(`/planets/${id}/`)
+  async getPlanet(id) {
+    const planet = await this.getResources(`/planets/${id}/`)
+    return this.transformPlanet(planet)
   }
 
   async getAllStarships() {
     const res = await this.getResources(`/starships/`)
-    return res.results
+    return res.results.map(this.transformSpaceship)
   }
 
-  getStarship(id) {
-    return this.getResources(`/starships/${id}/`)
+  async getStarship(id) {
+    const spaceship = await this.getResources(`/starships/${id}/`)
+    return this.transformSpaceship(spaceship)
+  }
+
+  extractId(item) {
+    const idRegExp = /\/([0-9]*)\/$/
+    return item.url.match(idRegExp)[1]
+  }
+
+  transformPlanet(planet) {
+    return {
+      id: this.extractId(planet),
+      name: planet.name,
+      population: planet.population,
+      rotationPeriod: planet.rotation_period,
+      diameter: planet.diameter
+    }
+  }
+
+  transformPerson(person) {
+    return {
+      id: this.extractId(person),
+      name: person.name,
+      gender: person.gender,
+      birthYear: person.birthYear,
+      eyeColor: person.eyeColor
+    }
+  }
+
+  transformSpaceship(spaceship) {
+    return {
+      id: this.extractId(spaceship),
+      name: spaceship.name,
+      model: spaceship.model,
+      manufacturer: spaceship.manufacturer,
+      costInCredits: spaceship.costInCredits,
+      length: spaceship.length,
+      crew: spaceship.crew,
+      passengers: spaceship.passengers,
+      cargoCapacity: spaceship.cargoCapacity
+    }
   }
 }

@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 
 import Header from '../Header'
 import RandomPlanet from '../RandomPlanet'
-import ItemList from '../ItemList'
-import PersonDetails from '../PersonDetails'
+import ErrorIndicator from '../ErrorIndicator';
+import PeoplePage from '../PeoplePage';
 
 import 'bootswatch/dist/slate/bootstrap.min.css'
 import './App.css'
@@ -11,32 +11,26 @@ import './App.css'
 class App extends Component {
 
   state = {
-    selectedPerson: null
+    hasError: false
   }
 
-  onPersonSelected = (id) => {
-    this.setState({
-      selectedPerson: id
-    })
+  componentDidCatch(error, errorInfo) {
+    this.setState({ hasError: true })
   }
 
   render() {
-    const { selectedPerson } = this.state
+    const { hasError } = this.state
+
+    if (hasError) {
+      return <ErrorIndicator />
+    }
 
     return (
         <div className='container'>
           <Header />
           <RandomPlanet />
 
-          <div className='d-flex justify-content-between mt-3'>
-            <div className='col-md-3'>
-              <ItemList onItemSelected={ this.onPersonSelected }/>
-            </div>
-            <div className='col-md-8'>
-              <PersonDetails personId={ selectedPerson }/>
-            </div>
-
-          </div>
+          <PeoplePage />
         </div>
     );
   }

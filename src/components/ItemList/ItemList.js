@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 
 import SwapiService from '../../services/swapiService'
+import Spinner from '../Spinner'
 
 import './ItemList.css'
-import Spinner from '../Spinner';
-
 
 class ItemList extends Component {
 

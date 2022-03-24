@@ -9,7 +9,20 @@ import 'bootswatch/dist/slate/bootstrap.min.css'
 import './App.css'
 
 class App extends Component {
+
+  state = {
+    selectedPerson: null
+  }
+
+  onPersonSelected = (id) => {
+    this.setState({
+      selectedPerson: id
+    })
+  }
+
   render() {
+    const { selectedPerson } = this.state
+
     return (
         <div className='container'>
           <Header />
@@ -17,10 +30,10 @@ class App extends Component {
 
           <div className='d-flex justify-content-between mt-3'>
             <div className='col-md-3'>
-              <ItemList />
+              <ItemList onItemSelected={ this.onPersonSelected }/>
             </div>
             <div className='col-md-8'>
-              <PersonDetails />
+              <PersonDetails personId={ selectedPerson }/>
             </div>
 
           </div>

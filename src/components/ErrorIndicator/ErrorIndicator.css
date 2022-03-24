@@ -1,0 +1,16 @@
+.error-indicator {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: #bb9100;
+    margin: auto;
+}
+
+.error-image {
+    margin: auto;
+}
+
+.boom {
+    font-weight: bold;
+    font-size: 24px;
+}

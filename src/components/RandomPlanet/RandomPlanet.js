@@ -4,6 +4,7 @@ import SwapiService from '../../services/swapiService'
 
 import './RandomPlanet.css'
 import Spinner from '../Spinner';
+import ErrorIndicator from '../ErrorIndicator';
 
 class RandomPlanet extends Component {
 
@@ -23,6 +24,14 @@ class RandomPlanet extends Component {
   onPlanetLoaded = (planet) => {
     this.setState({
       planet,
+      loading: false,
+      error: false
+    })
+  }
+
+  onError = (error) => {
+    this.setState({
+      error: true,
       loading: false
     })
   }
@@ -33,17 +42,22 @@ class RandomPlanet extends Component {
       .swapiService
       .getPlanet(id)
       .then(this.onPlanetLoaded)
+      .catch(this.onError)
   }
 
   render() {
 
-    const { planet, loading } = this.state
+    const { planet, loading, error } = this.state
 
+    const hasData = !(loading || error)
+
+    const errorMessage = error ? <ErrorIndicator /> : null
     const spinner = loading ? <Spinner /> : null
-    const content = !loading ? <PlanetView planet={planet}/> : null
+    const content = hasData ? <PlanetView planet={planet} /> : null
 
     return (
         <div className='container d-flex random-planet'>
+          { errorMessage }
           { spinner }
           { content }
         </div>

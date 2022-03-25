@@ -1,20 +1,21 @@
 import React, {Component} from 'react';
-import PersonDetails from '../PersonDetails';
+
+import ItemDetials from '../ItemDetails';
 import ItemList from '../ItemList';
-import ErrorIndicator from '../ErrorIndicator';
+import ErrorBoundary from '../ErrorBoundary';
+import SwapiService from '../../services/swapiService';
+import Row from '../Row';
+
+import './PeoplePage.css'
 
 class PeoplePage extends Component {
 
+  swapiService = new SwapiService()
+
   state = {
-    selectedPerson: null,
-    hasError: false
+    selectedPerson: null
   }
 
-  componentDidCatch(error, errorInfo) {
-    this.setState({
-      hasError: true
-    })
-  }
 
   onPersonSelected = (id) => {
     this.setState({
@@ -22,22 +23,29 @@ class PeoplePage extends Component {
     })
   }
 
-  render() {
-    const { selectedPerson, hasError } = this.state
+  renderItem = ({ name, birthYear }) => {
+    return `${name} (${birthYear})`
+  }
 
-    if (hasError) {
-      return <ErrorIndicator />
-    }
+  render() {
+    const { selectedPerson } = this.state
+
+    const itemList = (
+      <ItemList
+        onItemSelected={ this.onPersonSelected }
+        getData={ this.swapiService.getAllPeoples }
+        renderItem={ this.renderItem }
+      />
+    )
+
+    const personDetails = (
+      <ItemDetials itemId={ selectedPerson }/>
+    )
 
     return (
-      <div className='d-flex justify-content-between mt-3'>
-        <div className='col-md-3'>
-          <ItemList onItemSelected={ this.onPersonSelected }/>
-        </div>
-        <div className='col-md-8'>
-          <PersonDetails personId={ selectedPerson }/>
-        </div>
-      </div>
+        <ErrorBoundary>
+          <Row list={ itemList } details={ personDetails }/>
+        </ErrorBoundary>
     );
   }
 }

@@ -1,58 +1,30 @@
-import React, { Component } from 'react'
-
-import Spinner from '../Spinner'
+import React from 'react'
 
 import './ItemList.css'
 
-class ItemList extends Component {
+const ItemList = (props) =>  {
+  const { data, renderItem, onItemSelected } = props
 
-  state = {
-    itemList: null
-  }
+  const items = data.map((item) => {
+    const { id } = item
+    const label = renderItem(item)
 
-  componentDidMount() {
-    const { getData } = this.props
-
-    getData()
-      .then((itemList) => {
-        this.setState({
-          itemList
-        })
-      })
-  }
-
-  renderItems = (array) => {
-    return array.map((item) => {
-      const { id } = item
-      const label = this.props.renderItem(item)
-
-      return (
+    return (
         <li
-          key={id}
-          className='list-group-item list-group-item-action item'
-          onClick={() => this.props.onItemSelected(id)}
+            key={id}
+            className='list-group-item list-group-item-action item'
+            onClick={() => onItemSelected(id)}
         >
           { label }
         </li>
-      )
-    })
-  }
+    )
+  })
 
-  render() {
-    const { itemList } = this.state
-
-    if (!itemList) {
-      return <Spinner />
-    }
-
-    const items = this.renderItems(itemList)
-
-    return (
-        <ul className='item-list list-group'>
-          { items }
-        </ul>
-    );
-  }
+  return (
+      <ul className='item-list list-group'>
+        { items }
+      </ul>
+  );
 }
 
-export default ItemList;
+export default ItemList

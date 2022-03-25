@@ -6,14 +6,16 @@ import ErrorIndicator from '../ErrorIndicator';
 
 import 'bootswatch/dist/slate/bootstrap.min.css'
 import './App.css'
-import ItemDetails from '../ItemDetails';
-import SwapiService from '../../services/swapiService';
-import Row from '../Row';
-import { Record } from '../ItemDetails/ItemDetails';
+
+import {
+  PersonDetails,
+  PersonList, PlanetDetails,
+  PlanetList, StarshipDetails,
+  StarshipList,
+} from '../SWComponents';
 
 class App extends Component {
 
-  swapiService = new SwapiService()
 
   state = {
     hasError: false
@@ -23,37 +25,16 @@ class App extends Component {
     this.setState({ hasError: true })
   }
 
+  renderItem = ({ name }) => {
+    return `${name}`
+  }
+
   render() {
     const { hasError } = this.state
-    const { getPerson, getStarship, getPersonImage, getStarshipImage } = this.swapiService
 
     if (hasError) {
       return <ErrorIndicator />
     }
-
-    const personDetails = (
-      <ItemDetails
-        itemId={11}
-        getData={ getPerson }
-        getImageURL={ getPersonImage }
-      >
-        <Record field='gender' label='Gender' />
-        <Record field='birthYear' label='Birth Year' />
-        <Record field='eyeColor' label='Eye Color' />
-      </ItemDetails>
-    )
-
-    const starshipDetails = (
-      <ItemDetails
-        itemId={5}
-        getData={ getStarship }
-        getImageURL={ getStarshipImage }
-      >
-        <Record field='model' label='Model' />
-        <Record field='length' label='Length' />
-        <Record field='costInCredits' label='Cost' />
-      </ItemDetails>
-    )
 
     return (
         <div className='container'>
@@ -61,10 +42,14 @@ class App extends Component {
           <RandomPlanet />
 
           {/*<PeoplePage />*/}
-          <Row
-            list={ personDetails }
-            details={ starshipDetails }
-          />
+
+          <PersonDetails itemId={ 11 } />
+          <PlanetDetails itemId={ 5 } />
+          <StarshipDetails itemId={ 4 } />
+
+          <PersonList renderItem={ this.renderItem }/>
+          <StarshipList renderItem={ this.renderItem }/>
+          <PlanetList renderItem={ this.renderItem }/>
         </div>
     );
   }

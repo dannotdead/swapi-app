@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 
-import SwapiService from '../../services/swapiService'
-
 import './ItemDetails.css'
 
 class ItemDetails extends Component {
-
-  swapiService = new SwapiService()
 
   state = {
     item: null,
@@ -102,7 +98,6 @@ const Record = ({ item, field, label }) => {
 }
 
 export {
+  ItemDetails,
   Record
 }
-
-export default ItemDetails;

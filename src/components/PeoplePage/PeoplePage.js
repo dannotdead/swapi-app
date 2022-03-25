@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-import ItemDetials from '../ItemDetails';
+import { ItemDetails } from '../ItemDetails';
 import ItemList from '../ItemList';
 import ErrorBoundary from '../ErrorBoundary';
 import SwapiService from '../../services/swapiService';
@@ -39,7 +39,7 @@ class PeoplePage extends Component {
     )
 
     const personDetails = (
-      <ItemDetials itemId={ selectedPerson }/>
+      <ItemDetails itemId={ selectedPerson }/>
     )
 
     return (

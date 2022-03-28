@@ -1,21 +1,39 @@
 import React from 'react';
 import ItemList from '../ItemList';
-import { withData } from '../HOCHelpers'
-import SwapiService from '../../services/swapiService';
+import { withData, withSwapiService } from '../HOCHelpers'
 
-const swapiService = new SwapiService()
+const mapPersonMethodsToProps = (swapiService) => {
+  return {
+    getData: swapiService.getAllPeoples
+  }
+}
 
-const {
-  getAllPeoples,
-  getAllPlanets,
-  getAllStarships
-} = swapiService
+const mapPlanetMethodsToProps = (swapiService) => {
+  return {
+    getData: swapiService.getAllPlanets
+  }
+}
 
-const PersonList = withData(ItemList, getAllPeoples)
+const mapStarshipMethodsToProps = (swapiService) => {
+  return {
+    getData: swapiService.getAllStarships
+  }
+}
 
-const PlanetList = withData(ItemList, getAllPlanets)
+const PersonList = withSwapiService(
+                     withData(ItemList),
+                     mapPersonMethodsToProps
+                   )
 
-const StarshipList = withData(ItemList, getAllStarships)
+const PlanetList = withSwapiService(
+                     withData(ItemList),
+                     mapPlanetMethodsToProps
+                   )
+
+const StarshipList = withSwapiService(
+                       withData(ItemList),
+                       mapStarshipMethodsToProps
+                     )
 
 export {
   PersonList,

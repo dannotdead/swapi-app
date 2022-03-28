@@ -14,8 +14,12 @@ import {
   StarshipList,
 } from '../SWComponents';
 
+import { SwapiServiceProvider } from '../SwapiServiceContext';
+import SwapiService from '../../services/swapiService';
+
 class App extends Component {
 
+  swapiService = new SwapiService()
 
   state = {
     hasError: false
@@ -37,6 +41,7 @@ class App extends Component {
     }
 
     return (
+      <SwapiServiceProvider value={ this.swapiService }>
         <div className='container'>
           <Header />
           <RandomPlanet />
@@ -51,6 +56,7 @@ class App extends Component {
           <StarshipList renderItem={ this.renderItem }/>
           <PlanetList renderItem={ this.renderItem }/>
         </div>
+      </SwapiServiceProvider>
     );
   }
 }

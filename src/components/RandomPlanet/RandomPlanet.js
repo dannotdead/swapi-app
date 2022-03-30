@@ -5,11 +5,16 @@ import SwapiService from '../../services/swapiService'
 import './RandomPlanet.css'
 import Spinner from '../Spinner';
 import ErrorIndicator from '../ErrorIndicator';
+import PropTypes from 'prop-types';
 
 class RandomPlanet extends Component {
 
   static defaultProps = {
     updateInterval: 10000
+  }
+
+  static propTypes = {
+    updateInterval: PropTypes.number
   }
 
   swapiService = new SwapiService()

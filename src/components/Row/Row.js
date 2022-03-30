@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './Row.css'
+import PropTypes from 'prop-types';
 
 const Row = ({ list, details }) => {
   return (
@@ -14,5 +15,10 @@ const Row = ({ list, details }) => {
       </div>
   );
 };
+
+Row.propTypes = {
+  list: PropTypes.node,
+  details: PropTypes.node
+}
 
 export default Row;

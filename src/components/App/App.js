@@ -7,15 +7,9 @@ import ErrorIndicator from '../ErrorIndicator';
 import 'bootswatch/dist/slate/bootstrap.min.css'
 import './App.css'
 
-import {
-  PersonDetails,
-  PersonList, PlanetDetails,
-  PlanetList, StarshipDetails,
-  StarshipList,
-} from '../SWComponents';
-
 import { SwapiServiceProvider } from '../SwapiServiceContext';
 import SwapiService from '../../services/swapiService';
+import {PeoplePage, PlanetsPage, StarshipsPage} from '../Pages';
 
 class App extends Component {
 
@@ -44,17 +38,14 @@ class App extends Component {
       <SwapiServiceProvider value={ this.swapiService }>
         <div className='container'>
           <Header />
+
           <RandomPlanet />
 
-          {/*<PeoplePage />*/}
+          <PeoplePage />
 
-          <PersonDetails itemId={ 11 } />
-          <PlanetDetails itemId={ 5 } />
-          <StarshipDetails itemId={ 4 } />
+          <PlanetsPage />
 
-          <PersonList renderItem={ this.renderItem }/>
-          <StarshipList renderItem={ this.renderItem }/>
-          <PlanetList renderItem={ this.renderItem }/>
+          <StarshipsPage />
         </div>
       </SwapiServiceProvider>
     );

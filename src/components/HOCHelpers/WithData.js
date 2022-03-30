@@ -12,7 +12,7 @@ const withData = (View) => {
     }
 
     componentDidMount() {
-
+      this.update()
     }
 
     update = () => {

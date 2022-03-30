@@ -1,6 +1,6 @@
 import React from 'react';
 import ItemList from '../ItemList';
-import { withData, withSwapiService } from '../HOCHelpers'
+import { withData, withSwapiService, compose } from '../HOCHelpers'
 
 const mapPersonMethodsToProps = (swapiService) => {
   return {
@@ -20,14 +20,20 @@ const mapStarshipMethodsToProps = (swapiService) => {
   }
 }
 
-const PersonList = withSwapiService(mapPersonMethodsToProps)(
-                    withData(ItemList))
+const PersonList = compose(
+                     withSwapiService(mapPersonMethodsToProps),
+                     withData
+                   )(ItemList)
 
-const PlanetList = withSwapiService(mapPlanetMethodsToProps)(
-                    withData(ItemList))
+const PlanetList = compose(
+                     withSwapiService(mapPlanetMethodsToProps),
+                     withData
+                   )(ItemList)
 
-const StarshipList = withSwapiService(mapStarshipMethodsToProps)(
-                      withData(ItemList))
+const StarshipList = compose(
+                       withSwapiService(mapStarshipMethodsToProps),
+                       withData
+                     )(ItemList)
 
 export {
   PersonList,
